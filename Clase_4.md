@@ -38,6 +38,11 @@ Nos crea un archivo de migración para la tabla de tareas en la carpeta de `data
         });
     }
 ~~~
+Para llaves foranes podemos utilizar este codigo
+~~~
+$table->foreignId('carrera_id')->constrained();
+~~~
+
 
 Una vez creado el archivo de creación de tabla ejecutamos lo siguiente para que se genera nuestra tabla
 ~~~
@@ -145,14 +150,23 @@ o podemos manejar otros paramteros
 $tareas = Tarea::where('id', '=', 1)->get();
 ~~~
 
-Documentacion Query Builder : https://laravel.com/docs/8.x/queries
+
+
+
+## Forma 3 
+
+Creación de modelo con controlador
+~~~
+php artisan make:model Tarea -m
+~~~
 
 En caso de que se necesite especificar el nombre de la tabla en nuestro modelo tenemos que agreagar esto en el codigo de nuestro modelo
-
 
 ~~~
 protected $table = 'nombre_de_tabla'
 ~~~
+
+Documentacion Query Builder : https://laravel.com/docs/8.x/queries
 ---
 Podemos crear un controlador con un modelo de Tarea ya asignado de la siguiente forma, nos ahorra la importacion del modelo y nos agrega los modelos a nuestros metodos:
 

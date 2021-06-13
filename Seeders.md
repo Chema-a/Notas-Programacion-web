@@ -1,6 +1,6 @@
-# Seeder
+# Seeder y Factory
 
-Los seeders son una forma de poblar nuestras tablas mas rapidamente, ya sea para probar o para llenar las tablas con información básica
+Los seeders son una forma de poblar nuestras tablas mas rapidamente, ya sea para probar o para llenar las tablas con información básica (CATALOGAR)
 
 El codigo para crear una seeder es el sieguiente:
 ~~~
@@ -53,3 +53,49 @@ php artisan migrate --seed
 ~~~
 
 Si ejecutamos esto junto al codigo anterior, nuestra base de datos no puede validar si hay un nombre de carrera unico
+
+---
+
+## Factory
+
+Para crear una factory, usamos el sigueinte codigo
+
+Creamos nuestro seeder de prueba y nuestra factory
+~~~
+php artisan make:factory PrestadorFactory
+~~~
+~~~
+php artisan make:seeder PruebaPrestadoresSeeder
+~~~
+
+
+
+Esto lo que hace es que genera la factory, utilizando el modelo Prestador
+
+Ahora en la funcion `definition()`, vamos a generar los valores random de nuestra tabla
+
+public function definition()
+~~~
+return[
+    'nombre' -> $this->faker->name(),
+    'codigo' -> $this->faker->randomNumber(9,true),
+    'correo' -> $this->faker->phoneNumber(),
+    'carrera' -> $this->faker->numberBetween(1,3),
+];
+~~~
+
+Y ahora en *Databaseseeder.php* viene un ejemplo que vamos a copiar en nuestro archivo seeder *PruebaPrestadoresSeeder.php*
+~~~
+\App\Models\Prestador::factory(10)->create(); - el parametro de factory(#) Indica cuantos registros se hacen
+~~~
+
+Para generar las factorys entonces vamos a correr el codigo
+
+~~~
+php artisan db:seed --class=PruebaPrestadoresSeeder
+~~~
+
+
+
+
+
